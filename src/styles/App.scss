@@ -1,0 +1,49 @@
+@font-face {
+  font-family: "Font Awesome 5 Brands Regular";
+  src: url("./fonts/fa-brands-400.ttf") format("opentype");
+}
+@font-face {
+  font-family: "Font Awesome 5 Free Regular";
+  src: url("./fonts/fa-regular-400.ttf") format("opentype");
+}
+@font-face {
+  font-family: "Font Awesome 5 Free Solid";
+  src: url("./fonts/fa-solid-900.ttf") format("opentype");
+}
+
+.App {
+  height: auto;
+  width: 98.932vw;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  * {
+    box-sizing: border-box;
+  }
+
+  .header-warning {
+    height: 58px;
+    width: 100%;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    a {
+      color: black !important;
+    }
+  }
+
+  .container {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+}
