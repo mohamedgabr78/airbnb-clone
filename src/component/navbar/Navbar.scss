@@ -39,6 +39,35 @@
     align-items: center;
     padding-left: 20%;
     font-size: 20px;
+    .item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      height: 50%;
+      cursor: pointer;
+      &:hover {
+        .line {
+          width: 5px;
+        }
+        span {
+          opacity: 0.8;
+        }
+      }
+      &.active {
+        span {
+          opacity: 1;
+        }
+        .line {
+          width: 20px;
+        }
+      }
+      .line {
+        height: 1px;
+        background-color: white;
+        transition: all 0.3 ease-out;
+      }
+    }
   }
   .left-navbar {
     background: transparent;
@@ -61,5 +90,18 @@
       border-radius: 100px;
       color: black;
     }
+  }
+  .user-label {
+    height: 200%;
+    width: 11.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    position: absolute;
+    margin: 15% 2% 0 0;
+    border-radius: 30px;
+    color: black;
   }
 }

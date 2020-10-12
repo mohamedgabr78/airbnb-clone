@@ -9,7 +9,7 @@ function SubNavbar() {
   const [count, setCount] = useState({
     adultNumber: 0,
     childNumber: 0,
-    animalNumber: 0,
+    InfantsNumber: 0,
   });
   const myref = useRef();
 
@@ -21,26 +21,22 @@ function SubNavbar() {
   };
 
   const handelCountplus = (countName) => {
-    setCount({
-      adultNumber: count.adultNumber,
-      childNumber: count.childNumber,
-      animalNumber: count.animalNumber,
-      [countName]: count[countName] + 1,
-    });
+    setCount({ ...count, [countName]: count[countName] + 1 });
   };
   const handelCountminus = (countName) => {
     setCount({ ...count, [countName]: count[countName] - 1 });
   };
 
+  function handleClickOutside(event) {
+    if (myref.current && !myref.current.contains(event.target)) {
+      setSubNavbarState(null);
+    }
+  }
+
   useEffect(() => {
     /**
      * Alert if clicked on outside of element
      */
-    function handleClickOutside(event) {
-      if (myref.current && !myref.current.contains(event.target)) {
-        setSubNavbarState(null);
-      }
-    }
 
     // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside);
@@ -65,9 +61,9 @@ function SubNavbar() {
     },
     {
       title: "animals",
-      fnp: () => handelCountplus("animalNumber"),
-      fnm: () => handelCountminus("animalNumber"),
-      count: count.animalNumber,
+      fnp: () => handelCountplus("InfantsNumber"),
+      fnm: () => handelCountminus("InfantsNumber"),
+      count: count.InfantsNumber,
     },
   ];
 
@@ -77,8 +73,9 @@ function SubNavbar() {
         <div className="guests-row">
           <div className="guests-label">{row.title}</div>
           <button
+            className={`${row.count <= 0 ? "btn-disabled" : ""}`}
             onClick={() => {
-              row.fnm();
+              row.count > 0 && row.fnm();
             }}
           >
             <i class="fas fa-minus-circle"></i>
@@ -98,12 +95,41 @@ function SubNavbar() {
 
   return (
     <div className="sub-navbar" ref={myref}>
-      {/* <Calendar value={date} onChange={handeldate} /> */}
-
-      <div onClick={() => handelDropDown("nearby")}>location</div>
-      <div onClick={() => handelDropDown("calendar")}>check in</div>
-      <div onClick={() => handelDropDown("calendar")}>check out</div>
-      <div onClick={() => handelDropDown("guests")}>guests</div>
+      <div
+        className={`subnavbar-item ${
+          subNavbarState === "nearby" ? "active" : ""
+        }`}
+        onClick={() => handelDropDown("nearby")}
+      >
+        location
+      </div>
+      <div className="sperator"></div>
+      <div
+        className={`subnavbar-item ${
+          subNavbarState === "calendar" ? "active" : ""
+        }`}
+        onClick={() => handelDropDown("calendar")}
+      >
+        check in
+      </div>
+      <div className="sperator"></div>
+      <div
+        className={`subnavbar-item ${
+          subNavbarState === "calendar" ? "active" : ""
+        }`}
+        onClick={() => handelDropDown("calendar")}
+      >
+        check out
+      </div>
+      <div className="sperator"></div>
+      <div
+        className={`subnavbar-item ${
+          subNavbarState === "guests" ? "active" : ""
+        }`}
+        onClick={() => handelDropDown("guests")}
+      >
+        guests
+      </div>
       {subNavbarState === "nearby" ? (
         <div className="nearby">
           <div className="location-image">
@@ -122,8 +148,8 @@ function SubNavbar() {
         <div className="guests-container">{renderGuestRow()}</div>
       ) : null}
 
-      <div className="search-bar">
-        <h3>search</h3>
+      <div className={`search-bar ${subNavbarState !== null ? "active" : ""}`}>
+        {subNavbarState !== null ? <h3>search</h3> : null}
         <i className="fas fa-search" />
       </div>
     </div>

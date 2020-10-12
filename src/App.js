@@ -7,6 +7,7 @@ import Navbar from "./component/navbar/Navbar";
 
 function App() {
   const [subNavbarState, setSubNavbarState] = useState(null);
+  const [navbarState, setNavbarState] = useState(null);
 
   return (
     <div className="App">
@@ -14,6 +15,8 @@ function App() {
         value={{
           subNavbarState,
           setSubNavbarState,
+          navbarState,
+          setNavbarState,
         }}
       >
         <SubNavbar />
